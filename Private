@@ -1,4 +1,4 @@
---test agin
+--a 
 
 
 local function checkquest()
@@ -141,6 +141,9 @@ local function checkquest()
   end 
 end
 
+ getgenv().a = true 
+ while task.wait() do 
+   if a == true then 
             checkquest()
             if game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == 0 then 
       wait(.5)
@@ -151,11 +154,15 @@ end
             }
             
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuestHandler"):FireServer(unpack(args))
-              elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == tostring(QUESTNUMBER) and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
+              elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == tonumber(QUESTNUMBER) and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
                 for i,v in pairs(workspace.Live:GetDescendants()) do 
                  if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
                  end 
                 end
               end
-        
+            else
+              wait()
+              break
+            end 
+          end 
