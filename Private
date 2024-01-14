@@ -1,4 +1,4 @@
---c
+--d
 
 
 local vu = game:GetService("VirtualUser")
@@ -270,16 +270,18 @@ Tab:AddToggle({
 Tab:AddButton({
 	Name = "Refresh Weapons List",
 	Callback = function()
-
+local Weapon = {}
 for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
   if v:IsA("Tool") then 
     table.clear(Weapon,v.Name)
     wait(.5)
+
     table.insert(Weapon,v.Name)
+    WeaponList:Refresh(Weapon,true)
   end 
  end 
   wait(.5)
- WeaponList:Refresh(Weapon,true)
+ 
   	end    
 })
 
