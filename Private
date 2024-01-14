@@ -266,21 +266,28 @@ Tab:AddToggle({
 	end    
 })
 
-Tab:AddButton({
-	Name = "Refresh Weapons List",
-	Callback = function()
-     
-local Weapon = {}
-for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
-  if v:IsA("Tool") then 
-    table.clear(Weapon,v.Name)
-    table.insert(Weapon,v.Name)
-  end 
- end 
- wait(0.5)
- WeaponList:Refresh(Weapon,true)
-  	end    
-})
+
+        
+game.Players.LocalPlayer.Backpack.DescendantAdded:Connect(function(tool)
+	local toolName = tool.Name
+	if tool:IsA("Tool") then
+		table.insert(Weapon, toolName)
+		WeaponList:Refresh(Weapon)
+	end
+end)
+game.Players.LocalPlayer.Backpack.DescendantRemoving:Connect(function(tool)
+	local toolName = tool.Name
+	if tool:IsA("Tool") then
+		for i,v in pairs(Weapon) do
+			if v == toolName then
+				table.remove(Weapon, i)
+			end
+		end	
+	end
+	WeaponList:Refresh(Weapon)
+end)
+
+
 
 
 
