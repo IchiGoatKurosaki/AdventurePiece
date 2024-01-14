@@ -1,0 +1,226 @@
+local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+
+
+
+
+
+local function checkquest()
+  local Level =  game:GetService("Players").LocalPlayer.ProfileService.Stats.Level.Value 
+   if Level == 1 or Level <= 19 then 
+
+   MON = "Bandit"
+   QUESTNUMBER = "1"
+   QUESTNAME = "QuestBandit"
+   QUESTDESC = "DEFEAT BANDITS"
+   QUESTCFRAME = CFrame.new(3617.29785, 73.0931091, -2554.43164, -0.70696485, -7.26210345e-08, -0.707248688, -5.88657922e-09, 1, -9.67968248e-08, 0.707248688, -6.42686757e-08, -0.70696485)
+    -- NO NEED MONCFRAME FOR NOW.
+  -- MONCFRAME = CFrame.new(3563.27295, 67.198494, -2443.0271, -0.996951103, 7.51098952e-08, 0.0780291632, 7.49817488e-08, 1, -4.57218441e-09, -0.0780291632, 1.29251854e-09, -0.996951103) 
+   elseif Level == 20 or Level <= 24 then 
+    MON = "Bandit Boss"
+    QUESTNUMBER = "2"
+    QUESTNAME = "QuestBanditBoss"
+    QUESTDESC = "DEFEAT BANDIT BOSS"
+    QUESTCFRAME = CFrame.new(3262.71509, 72.7965164, -2282.16333, 0.751643479, -2.08843272e-08, -0.659569621, -4.61007721e-09, 1, -3.69171964e-08, 0.659569621, 3.07892378e-08, 0.751643479)
+  elseif Level == 25 or Level <= 49 then 
+    MON = "Clown Pirate"
+    QUESTNUMBER = "3"
+    QUESTNAME = "QuestClownPirate"
+    QUESTDESC = "DEFEAT CLOWN PIRATES"
+    QUESTCFRAME = CFrame.new(3437.28442, 93.6155243, -6798.78076, 0.999041796, 4.1016186e-09, -0.0437665507, -3.73738374e-09, 1, 8.40404901e-09, 0.0437665507, -8.23242363e-09, 0.999041796)
+  elseif Level == 50 or Level <= 74 then 
+    MON = "Clown Captain"
+    QUESTNUMBER = "4"
+    QUESTNAME = "QuestClownCaptain"
+    QUESTDESC = "DEFEAT CLOWN CAPTAIN"
+    QUESTCFRAME = CFrame.new(3283.37842, 94.5288544, -6284.55713, 0.306442291, 7.37411625e-08, 0.951889217, -1.29025262e-08, 1, -7.33145029e-08, -0.951889217, 1.01848876e-08, 0.306442291)
+  elseif Level == 75 or Level <= 109 then 
+    MON = "Evil Pirate"
+    QUESTNUMBER = "5"
+    QUESTNAME = "QuestEvilPirate"
+    QUESTDESC = "DEFEAT EVIL PIRATES"
+    QUESTCFRAME = CFrame.new(7523.66455, 119.685997, -6191.35693, 0.284684867, -1.53789728e-08, -0.958621144, 8.19049495e-10, 1, -1.57995697e-08, 0.958621144, 3.71274034e-09, 0.284684867)
+  elseif Level == 110 or Level <= 124 then 
+    MON = "Smoke"
+    QUESTNUMBER = "6"
+    QUESTNAME = "QuestSmoke"
+    QUESTDESC = "DEFEAT SMOKE"
+    QUESTCFRAME = CFrame.new(7523.66455, 119.685997, -6191.35693, 0.284684867, -1.53789728e-08, -0.958621144, 8.19049495e-10, 1, -1.57995697e-08, 0.958621144, 3.71274034e-09, 0.284684867)
+  elseif Level == 125 or Level <= 149 then 
+    MON = "Angry Villager"
+    QUESTNUMBER = "7"
+    QUESTNAME = "QuestAngryVillager"
+    QUESTDESC = "DEFEAT ANGRY VILLAGERS"
+    QUESTCFRAME = CFrame.new(7523.48193, 120.091789, -6192.87793, -0.0456903055, -2.20424425e-08, -0.998955667, 1.45968677e-08, 1, -2.27331185e-08, 0.998955667, -1.56203068e-08, -0.0456903055)
+  elseif Level == 150 or Level <= 199 then 
+    MON = "Claws"
+    QUESTNUMBER = "20"
+    QUESTNAME = "QuestClaws"
+    QUESTDESC = "DEFEAT CLAWS"
+    QUESTCFRAME = CFrame.new(7648.02979, 137.416245, -6453.05859, 0.870843232, -6.72678055e-08, 0.491560817, 5.96135479e-08, 1, 3.12346948e-08, -0.491560817, 2.10315987e-09, 0.870843232)
+  elseif Level == 200 or Level <= 249 then 
+    MON = "Fishman"
+    QUESTNUMBER = "8"
+    QUESTNAME = "QuestFishman"
+    QUESTDESC = "DEFEAT FISHMEN"
+    QUESTCFRAME = CFrame.new(-574.873352, 72.0632095, -10462.7285, -0.735158265, 3.13335811e-08, 0.677895546, 1.17494512e-08, 1, -3.34798997e-08, -0.677895546, -1.66481247e-08, -0.735158265)
+  elseif Level == 250 or Level <= 274 then 
+    MON = "Jaw"
+    QUESTNUMBER = "9"
+    QUESTNAME = "QuestJaw"
+    QUESTDESC = "DEFEAT JAW"
+    QUESTCFRAME = CFrame.new(-1072.65698, 68.0161438, -10124.8672, 0.450201035, 7.50049338e-08, 0.892927229, 1.5156564e-08, 1, -9.16406506e-08, -0.892927229, 5.47904229e-08, 0.450201035)
+  elseif Level == 275 or Level <= 299 then 
+    MON = "Desert Thief"
+    QUESTNUMBER = "10"
+    QUESTNAME = "QuestDesertTheif"  
+    QUESTDESC = "DEFEAT DESERT THIEFS"
+    QUESTCFRAME = CFrame.new(7790.04395, 70.2911835, -2471.24463, -0.45951423, -6.70422793e-08, -0.888170421, -2.38113684e-09, 1, -7.42516448e-08, 0.888170421, -3.20048308e-08, -0.45951423)
+  elseif Level == 300 or Level <= 349 then 
+    MON = "Desert King"
+    QUESTNUMBER = "11"
+    QUESTNAME = "QuestDesertKing"  
+    QUESTDESC = "DEFEAT DESERT KING"
+    QUESTCFRAME = CFrame.new(8320.47754, 76.6048889, -2143.23926, -0.956740439, -4.10248324e-09, 0.290942907, -6.41958975e-09, 1, -7.009616e-09, -0.290942907, -8.57411742e-09, -0.956740439)
+  elseif Level == 350 or Level <= 399 then 
+    MON = "Strong Marine"
+    QUESTNUMBER = "12"
+    QUESTNAME = "QuestStrongMarine"  
+    QUESTDESC = "DEFEAT STRONG MARINE"
+    QUESTCFRAME = CFrame.new(7330.2041, 82.8796997, -10423.1484, 0.909349442, 5.18657934e-08, 0.416033149, -7.31819316e-09, 1, -1.08671628e-07, -0.416033149, 9.57758743e-08, 0.909349442)
+  elseif Level == 400 or Level <= 424 then 
+    MON = "Light"
+    QUESTNUMBER = "21"
+    QUESTNAME = "QuestLight"  
+    QUESTDESC = "DEFEAT LIGHT"
+    QUESTCFRAME = CFrame.new(7425.52051, 82.7582321, -9643.45996, -0.989167511, -2.01826977e-09, 0.146791264, 2.48941718e-11, 1, 1.39170009e-08, -0.146791264, 1.37698999e-08, -0.989167511)
+  elseif Level == 425 or Level <= 449 then 
+    MON = "Monkey"
+    QUESTNUMBER = "13"
+    QUESTNAME = "QuestMonkey"  
+    QUESTDESC = "DEFEAT MONKEYS"
+    QUESTCFRAME = CFrame.new(-3393.65503, 153.619904, -2071.15137, 0.149915949, 8.1645581e-08, -0.988698721, -6.29127612e-08, 1, 7.3039395e-08, 0.988698721, 5.12519982e-08, 0.149915949)
+  elseif Level == 450 or Level <= 499 then 
+    MON = "Gorilla King"
+    QUESTNUMBER = "14"
+    QUESTNAME = "QuestGorillaKing"  
+    QUESTDESC = "DEFEAT GORILLA KING"
+    QUESTCFRAME = CFrame.new(-3625.63525, 148.5905, -1458.31189, -0.623226464, 2.72579275e-08, 0.78204143, 1.11510223e-08, 1, -2.59683386e-08, -0.78204143, -7.46359419e-09, -0.623226464)
+  elseif Level == 500 or Level <= 549 then 
+    MON = "Ice Monster"
+    QUESTNUMBER = "15"
+    QUESTNAME = "QuestIceMonster"  
+    QUESTDESC = "DEFEAT ICE MONSTERS"
+    QUESTCFRAME = CFrame.new(-4742.36133, 75.1267395, -6372.72119, 0.424670398, 5.85888937e-09, 0.905348003, 4.57276039e-09, 1, -8.61636096e-09, -0.905348003, 7.79905296e-09, 0.424670398)
+  elseif Level == 550 or Level <= 574 then 
+    MON = "Ice"
+    QUESTNUMBER = "22"
+    QUESTNAME = "QuestIce"  
+    QUESTDESC = "Defeat Ice"
+    QUESTCFRAME = CFrame.new(-4660.55127, 73.9795914, -6947.74854, -0.979781628, 3.2857244e-08, 0.200069845, 1.91884126e-08, 1, -7.02594178e-08, -0.200069845, -6.49998597e-08, -0.979781628)
+  elseif Level == 575 or Level <= 599 then 
+    MON = "Skypiean"
+    QUESTNUMBER = "16"
+    QUESTNAME = "QuestSkypiean"  
+    QUESTDESC = "DEFEAT SKYPIEANS"
+    QUESTCFRAME = CFrame.new(3733.52637, 1544.62939, -14410.1406, 0.972511232, 4.15537365e-08, 0.23285602, -5.14234486e-08, 1, 3.63149013e-08, -0.23285602, -4.72909072e-08, 0.972511232)
+  elseif Level == 600 or Level <= 649 then 
+    MON = "Thunder Lord"
+    QUESTNUMBER = "17"
+    QUESTNAME = "QuestThunderLord"  
+    QUESTDESC = "DEFEAT THUNDER LORD"
+    QUESTCFRAME = CFrame.new(4531.49707, 2403.5188, -17669.2441, 0.966441393, 8.03377809e-09, -0.256887287, -1.36222222e-09, 1, 2.61487081e-08, 0.256887287, -2.49212562e-08, 0.966441393)
+  elseif Level == 650 or Level <= 749 then 
+    MON = "Yeti"
+    QUESTNUMBER = "18"
+    QUESTNAME = "QuestYeti"  
+    QUESTDESC = "DEFEAT YETI"
+    QUESTCFRAME = CFrame.new(12120.5264, 98.6005707, -6435.70117, 0.0676262304, -2.95007823e-08, 0.997710705, -8.69510741e-10, 1, 2.96274099e-08, -0.997710705, -2.87111024e-09, 0.0676262304)
+  elseif Level == 750 or Level <= 9999999 then 
+    MON = "Donut"
+    QUESTNUMBER = "23"
+    QUESTNAME = "QuestDonut"  
+    QUESTDESC = "DEFEAT DONUT"
+    QUESTCFRAME = CFrame.new(-3053.09888, 1894.78381, 79895.5078, 0.981168866, -5.14718224e-08, -0.193151921, 3.39696804e-08, 1, -9.39251876e-08, 0.193151921, 8.55951612e-08, 0.981168866)
+  end 
+end
+
+ --[[
+   Raid World need to teleport by GetModelCFrame(), There are 2 raid world have 2 same level.
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Islands["Mirror World"]:GetModelCFrame()
+
+ ]]
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Sukuna - " .. GetName.Name, HidePremium = false, SaveConfig = true, ConfigFolder = "NilFolder"})
+
+local Tab = Window:MakeTab({
+	Name = "Level Farm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Level AutoFarm Tab:"
+})
+
+
+local Level = Tab:AddLabel("Current Level: " .. game:GetService("Players").LocalPlayer.ProfileService.Stats.Level.Value)
+
+spawn(function()
+  while wait(0.2) do
+      local LevelStatus = game:GetService("Players").LocalPlayer.ProfileService.Stats.Level
+      Level:Set("Current Level: " .. LevelStatus.Value)
+end
+end)
+
+
+
+
+
+Tab:AddToggle({
+	Name = "Auto Level Farm [Auto Check Level]",
+	Default = false,
+	Callback = function(Value)
+   
+  
+  
+  getgenv().AutoFarmLevel = Value 
+  spawn(function()
+         while task.wait() do  
+            if getgenv().AutoFarmLevel == true then 
+              checkquest()
+              if game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == 0 then 
+          
+        wait(.5)
+                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = QUESTCFRAME
+                 wait(.5)
+                 local args = {
+                  [1] = QUESTNAME
+              }
+              
+              game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuestHandler"):FireServer(unpack(args))
+      
+                elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == tonumber(QUESTNUMBER) and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
+                  for i,v in pairs(workspace.Live:GetDescendants()) do 
+                   if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
+                      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
+                      local args = {
+                        [1] = "StyleCombat",
+                        [2] = "CombatPunch",
+                        [3] = "Begin"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SignalRequest"):InvokeServer(unpack(args))
+                    
+                   end 
+                  end
+                end
+            else
+              wait()
+              break
+            end 
+           end 
+          end)
+	end    
+})
+
