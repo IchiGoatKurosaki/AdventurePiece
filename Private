@@ -1,4 +1,4 @@
---wrdz
+--ses
 
 
 local vu = game:GetService("VirtualUser")
@@ -221,7 +221,7 @@ Tab:AddToggle({
                   Info:Set("Autofarm Status: Kill Quest Enemies [ " .. MON .. " ]")
                   for i,v in pairs(workspace.Live:GetDescendants()) do 
                    if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
-                      game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
+                      game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
                       game:GetService'VirtualUser':CaptureController()
                       game:GetService'VirtualUser':Button1Down(Vector2.new(0,1,0,1))
                     
@@ -306,7 +306,7 @@ Tab:AddToggle({
      while wait() do  
        if AutoSkillZ == true then 
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game.Players.LocalPlayer)
-
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game.Players.LocalPlayer)
   else
     wait()
     game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game.Players.LocalPlayer)
@@ -328,6 +328,7 @@ Tab:AddToggle({
        if AutoSkillX == true then 
 
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game.Players.LocalPlayer)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game.Players.LocalPlayer)
   else
     wait()
 
