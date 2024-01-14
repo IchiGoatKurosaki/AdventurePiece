@@ -1,20 +1,16 @@
---test
-local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
-
-
-
+--test agin
 
 
 local function checkquest()
   local Level =  game:GetService("Players").LocalPlayer.ProfileService.Stats.Level.Value 
    if Level == 1 or Level <= 19 then 
-
    MON = "Bandit"
    QUESTNUMBER = "1"
    QUESTNAME = "QuestBandit"
    QUESTDESC = "DEFEAT BANDITS"
    QUESTCFRAME = CFrame.new(3617.29785, 73.0931091, -2554.43164, -0.70696485, -7.26210345e-08, -0.707248688, -5.88657922e-09, 1, -9.67968248e-08, 0.707248688, -6.42686757e-08, -0.70696485)
     -- NO NEED MONCFRAME FOR NOW.
+    
   -- MONCFRAME = CFrame.new(3563.27295, 67.198494, -2443.0271, -0.996951103, 7.51098952e-08, 0.0780291632, 7.49817488e-08, 1, -4.57218441e-09, -0.0780291632, 1.29251854e-09, -0.996951103) 
    elseif Level == 20 or Level <= 24 then 
     MON = "Bandit Boss"
@@ -45,7 +41,7 @@ local function checkquest()
     QUESTNUMBER = "6"
     QUESTNAME = "QuestSmoke"
     QUESTDESC = "DEFEAT SMOKE"
-    QUESTCFRAME = CFrame.new(7523.66455, 119.685997, -6191.35693, 0.284684867, -1.53789728e-08, -0.958621144, 8.19049495e-10, 1, -1.57995697e-08, 0.958621144, 3.71274034e-09, 0.284684867)
+    QUESTCFRAME = CFrame.new(-948.757324, 71.8985367, -6373.35742, 0.0295760278, -6.24338341e-08, 0.999562562, 5.84237583e-08, 1, 6.07324608e-08, -0.999562562, 5.66019764e-08, 0.0295760278)
   elseif Level == 125 or Level <= 149 then 
     MON = "Angry Villager"
     QUESTNUMBER = "7"
@@ -145,82 +141,21 @@ local function checkquest()
   end 
 end
 
- --[[
-   Raid World need to teleport by GetModelCFrame(), There are 2 raid world have 2 same level.
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Islands["Mirror World"]:GetModelCFrame()
-
- ]]
-
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Sukuna - " .. GetName.Name, HidePremium = false, SaveConfig = true, ConfigFolder = "NilFolder"})
-
-local Tab = Window:MakeTab({
-	Name = "Level Farm",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Section = Tab:AddSection({
-	Name = "Level AutoFarm Tab:"
-})
-
-
-local Level = Tab:AddLabel("Current Level: " .. game:GetService("Players").LocalPlayer.ProfileService.Stats.Level.Value)
-
-spawn(function()
-  while wait(0.2) do
-      local LevelStatus = game:GetService("Players").LocalPlayer.ProfileService.Stats.Level
-      Level:Set("Current Level: " .. LevelStatus.Value)
-end
-end)
-
-
-
-Tab:AddToggle({
-	Name = "Auto Level Farm [Auto Check Level]",
-	Default = false,
-	Callback = function(Value)
-   
-  
-  
-  getgenv().AutoFarmLevel = Value 
-  spawn(function()
-         while task.wait() do  
-            if getgenv().AutoFarmLevel == true then 
-              checkquest()
-              if game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == 0 then 
-          
-        wait(.5)
-                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = QUESTCFRAME
-                 wait(2)
-                 local args = {
-                  [1] = QUESTNAME
-              }
-              
-              game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuestHandler"):FireServer(unpack(args))
-    
-      
-                elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == tonumber(QUESTNUMBER) and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
-                  for i,v in pairs(workspace.Live:GetDescendants()) do 
-                   if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
-                      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
-                      local args = {
-                        [1] = "StyleCombat",
-                        [2] = "CombatPunch",
-                        [3] = "Begin"
-                    }
-                    
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SignalRequest"):InvokeServer(unpack(args))
-                    
-                   end 
-                  end
+            checkquest()
+            if game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == 0 then 
+      wait(.5)
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = QUESTCFRAME
+               wait(.5)
+               local args = {
+                [1] = QUESTNAME
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuestHandler"):FireServer(unpack(args))
+              elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == tostring(QUESTNUMBER) and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
+                for i,v in pairs(workspace.Live:GetDescendants()) do 
+                 if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
+                 end 
                 end
-            else
-              wait()
-              break
-            end 
-           end 
-          end)
-	end    
-})
-
+              end
+        
