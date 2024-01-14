@@ -1,4 +1,3 @@
---c
 
 
 local vu = game:GetService("VirtualUser")
@@ -167,7 +166,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Islands["
  ]]
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Sukuna - " .. GetName.Name, HidePremium = false, SaveConfig = true, ConfigFolder = "NilFolder"})
+local Window = OrionLib:MakeWindow({Name = "Sukuna - " .. GetName.Name, HidePremium = false, SaveConfig = false, ConfigFolder = "NilFolder"})
 
 local Tab = Window:MakeTab({
 	Name = "Level Farm",
@@ -276,9 +275,10 @@ for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) 
   if v:IsA("Tool") then 
     table.clear(Weapon,v.Name)
     table.insert(Weapon,v.Name)
-    WeaponList:Refresh(Weapon,true)
   end 
  end 
+ wait(0.5)
+ WeaponList:Refresh(Weapon,true)
   	end    
 })
 
@@ -293,7 +293,7 @@ Tab:AddToggle({
 	Name = "Auto Z Skills",
 	Default = false,
 	Callback = function(Value)
-    getgenv().AutoSkillZ = true 
+    getgenv().AutoSkillZ = Value 
      while wait() do  
        if AutoSkillZ == true then 
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game.Players.LocalPlayer)
@@ -314,7 +314,7 @@ Tab:AddToggle({
 	Name = "Auto X Skills",
 	Default = false,
 	Callback = function(Value)
-    getgenv().AutoSkillX = true 
+    getgenv().AutoSkillX = Value 
      while wait() do  
        if AutoSkillX == true then 
 
