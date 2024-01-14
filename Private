@@ -1,4 +1,4 @@
---ses
+--wren
 
 
 local vu = game:GetService("VirtualUser")
@@ -257,7 +257,7 @@ Tab:AddToggle({
 		getgenv().Auto = Value 
      while wait() do 
        if Auto == true then 
-         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game.Players.LocalPlayer.Backpack[getgenv().Weapon])
+         game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):EquipTool(game.Players.LocalPlayer:WaitForChild("Backpack")[getgenv().Weapon])
        else
         wait()
         break
