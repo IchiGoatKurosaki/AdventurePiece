@@ -1,8 +1,23 @@
---b
+--c
+
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(3)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+local Weapon = {}
+ for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
+   if v:IsA("Tool") then 
+     table.insert(Weapon,v.Name)
+   end 
+  end 
+
+  getgenv().Weapon = ""
+  getgenv().Ammount = ""
 local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
-
-
-
 
 
 local function checkquest()
@@ -166,6 +181,8 @@ local Section = Tab:AddSection({
 
 
 local Level = Tab:AddLabel("Current Level: " .. game:GetService("Players").LocalPlayer.ProfileService.Stats.Level.Value)
+local Info = Tab:AddLabel("Autofarm Status: Off")
+
 
 spawn(function()
   while wait(0.2) do
@@ -189,9 +206,9 @@ Tab:AddToggle({
             if getgenv().AutoFarmLevel == true then 
               checkquest()
               if game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value == 0 then 
-          
+                Info:Set("Autofarm Status: Take Quest [ " .. QUESTNAME .. " ]")
         wait(.5)
-                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = QUESTCFRAME
+        game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = QUESTCFRAME
                  wait(2)
                  local args = {
                   [1] = QUESTNAME
@@ -201,17 +218,12 @@ Tab:AddToggle({
     
       
                 elseif game:GetService("Players").LocalPlayer.ProfileService.Quest.Quest.Value ~= 0 and game:GetService("Players").LocalPlayer.ProfileService.Quest.QuestDesc.Value == QUESTDESC then 
-                  wait(0.1)
+                  Info:Set("Autofarm Status: Kill Quest Enemies [ " .. MON .. " ]")
                   for i,v in pairs(workspace.Live:GetDescendants()) do 
                    if v:IsA('Model') and  v:FindFirstChild("HumanoidRootPart") and v.HumanoidRootPart.OverheadGUI.Main.User.Text  == MON  and v:FindFirstChild("Humanoid")  and v.Humanoid.Health > 0 then 
-                      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
-                      local args = {
-                        [1] = "StyleCombat",
-                        [2] = "CombatPunch",
-                        [3] = "Begin"
-                    }
-                    
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SignalRequest"):InvokeServer(unpack(args))
+                      game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
+                      game:GetService'VirtualUser':CaptureController()
+                      game:GetService'VirtualUser':Button1Down(Vector2.new(0,1,0,1))
                     
                    end 
                   end
@@ -225,3 +237,236 @@ Tab:AddToggle({
 	end    
 })
 
+local Section = Tab:AddSection({
+	Name = "Weapon AutoFarm Tab:"
+})
+
+local WeaponList = Tab:AddDropdown({
+	Name = "Select Weapon:",
+	Default = "",
+	Options = Weapon,
+	Callback = function(Value)
+	getgenv().Weapon = Value
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Equip Selected Weapon",
+	Default = false,
+	Callback = function(Value)
+		getgenv().Auto = Value 
+     while wait() do 
+       if Auto == true then 
+         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game.Players.LocalPlayer.Backpack[getgenv().Weapon])
+       else
+        wait()
+        break
+       end
+      end
+
+	end    
+})
+
+Tab:AddButton({
+	Name = "Refresh Weapons List",
+	Callback = function()
+     
+local Weapon = {}
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
+  if v:IsA("Tool") then 
+    table.clear(Weapon,v.Name)
+    table.insert(Weapon,v.Name)
+    WeaponList:Refresh(Weapon,true)
+  end 
+ end 
+  	end    
+})
+
+
+
+local Section = Tab:AddSection({
+	Name = "Skills AutoFarm Tab:"
+})
+
+
+Tab:AddToggle({
+	Name = "Auto Z Skills",
+	Default = false,
+	Callback = function(Value)
+    getgenv().AutoSkillZ = true 
+     while wait() do  
+       if AutoSkillZ == true then 
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game.Players.LocalPlayer)
+
+  else
+    wait()
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game.Players.LocalPlayer)
+
+    break
+  end 
+end           
+  end    
+})
+
+
+
+Tab:AddToggle({
+	Name = "Auto X Skills",
+	Default = false,
+	Callback = function(Value)
+    getgenv().AutoSkillX = true 
+     while wait() do  
+       if AutoSkillX == true then 
+
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game.Players.LocalPlayer)
+  else
+    wait()
+
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game.Players.LocalPlayer)
+    break
+  end 
+end           
+  end    
+})
+
+
+local Tab = Window:MakeTab({
+	Name = "Stats",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Stats Tab:"
+})
+
+Tab:AddTextbox({
+	Name = "Put Ammount To Auto Upgrade Stat:",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+	getgenv().Ammount = Value
+	end	  
+})
+
+
+Tab:AddToggle({
+	Name = "Auto Upgrade Strength Stat",
+	Default = false,
+	Callback = function(Value)
+    getgenv().Strength = Value 
+     while wait() do  
+       if Strength == true then 
+
+        local args = {
+          [1] = "StrengthLevel",
+          [2] = getgenv().Ammount
+      }
+      
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UpdateStat"):InvokeServer(unpack(args))
+      
+  else
+    wait()
+    break
+  end 
+end           
+  end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Upgrade Defense Stat",
+	Default = false,
+	Callback = function(Value)
+    getgenv().Defense = Value 
+     while wait() do  
+       if Defense == true then 
+
+        local args = {
+          [1] = "DefenseLevel",
+          [2] = getgenv().Ammount
+      }
+      
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UpdateStat"):InvokeServer(unpack(args))
+      
+  else
+    wait()
+    break
+  end 
+end           
+  end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Upgrade Sword Stat",
+	Default = false,
+	Callback = function(Value)
+    getgenv().Sword = Value 
+     while wait() do  
+       if Sword == true then 
+
+        local args = {
+          [1] = "SwordLevel",
+          [2] = getgenv().Ammount
+      }
+      
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UpdateStat"):InvokeServer(unpack(args))
+      
+  else
+    wait()
+    break
+  end 
+end           
+  end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Upgrade Gun Stat",
+	Default = false,
+	Callback = function(Value)
+    getgenv().Gun = Value 
+     while wait() do  
+       if Gun == true then 
+
+        local args = {
+          [1] = "GunLevel",
+          [2] = getgenv().Ammount
+      }
+      
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UpdateStat"):InvokeServer(unpack(args))
+      
+  else
+    wait()
+    break
+  end 
+end           
+  end    
+})
+
+
+Tab:AddToggle({
+	Name = "Auto Upgrade Fruit Stat",
+	Default = false,
+	Callback = function(Value)
+    getgenv().Fruit = Value 
+     while wait() do  
+       if Fruit == true then 
+
+        local args = {
+          [1] = "FruitLevel",
+          [2] = getgenv().Ammount
+      }
+      
+      game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UpdateStat"):InvokeServer(unpack(args))
+      
+  else
+    wait()
+    break
+  end 
+end           
+  end    
+})
+
+
+
+
+OrionLib:Init()
