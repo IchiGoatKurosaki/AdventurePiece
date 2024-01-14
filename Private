@@ -1,4 +1,4 @@
---d
+--wrdz
 
 
 local vu = game:GetService("VirtualUser")
@@ -274,13 +274,19 @@ local Weapon = {}
 for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
   if v:IsA("Tool") then 
     table.clear(Weapon,v.Name)
+  end 
+end
     wait(.5)
 
+    local Weapon = {}
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
+  if v:IsA("Tool") then 
     table.insert(Weapon,v.Name)
-    WeaponList:Refresh(Weapon,true)
   end 
- end 
+end
   wait(.5)
+    WeaponList:Refresh(Weapon,true) 
+
  
   	end    
 })
